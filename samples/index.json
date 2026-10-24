@@ -1,0 +1,56 @@
+[
+  {
+    "file": "top-customers-postgres.sql",
+    "title": "Top customers",
+    "meta": "PostgreSQL \u00b7 CTEs, window function, joins",
+    "schema": "schemas/ecommerce-postgres.sql"
+  },
+  {
+    "file": "needs-review-postgres.sql",
+    "title": "A query with mistakes",
+    "meta": "PostgreSQL \u00b7 see the Review tab",
+    "schema": "schemas/ecommerce-postgres.sql"
+  },
+  {
+    "file": "inpatients-oracle.sql",
+    "title": "Yesterday's admissions",
+    "meta": "Oracle \u00b7 (+) joins, DECODE, ROWNUM",
+    "schema": "schemas/clinic-oracle-columns.json"
+  },
+  {
+    "file": "pipeline-sqlserver.sql",
+    "title": "Sales pipeline",
+    "meta": "SQL Server \u00b7 TOP, OUTER APPLY, NOLOCK",
+    "schema": "schemas/crm-sqlserver.sql"
+  },
+  {
+    "file": "monthly-revenue-snowflake.sql",
+    "title": "Monthly revenue trend",
+    "meta": "Snowflake \u00b7 LAG, running total, QUALIFY",
+    "schema": null
+  },
+  {
+    "file": "housekeeping-mysql.sql",
+    "title": "Archive and clean up",
+    "meta": "MySQL \u00b7 INSERT \u2026 SELECT, UPDATE JOIN, DELETE",
+    "schema": null
+  },
+  {
+    "file": "import-documents-plpgsql.sql",
+    "title": "Import documents (function)",
+    "meta": "PostgreSQL PL/pgSQL \u00b7 loop, variables, 4 bugs",
+    "schema": null
+  },
+  {
+    "file": "raise-salaries-plsql.sql",
+    "title": "Give a raise (procedure)",
+    "meta": "Oracle PL/SQL \u00b7 cursor loop, EXCEPTION",
+    "schema": null
+  },
+  {
+    "file": "close-opportunities-tsql.sql",
+    "title": "Close stale deals (procedure)",
+    "meta": "SQL Server T-SQL \u00b7 TRY/CATCH, dynamic SQL",
+    "schema": null
+  }
+]

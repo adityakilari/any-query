@@ -1,0 +1,8 @@
+node_modules/
+dist/
+_site/
+.DS_Store
+*.log
+# keep your own queries and schemas out of the repo
+*.local.sql
+private/

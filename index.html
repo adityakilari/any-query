@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Any Query</title>
+<meta name="description" content="Paste any SQL query and get a plain-English explanation, a step-by-step walkthrough, a data-flow diagram, column lineage and a review of common mistakes with fixes. Runs in your browser; nothing is uploaded.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="src/ui/styles.css">
+</head>
+<body>
+<!-- ================= HOME ================= -->
+<main class="home wrap" id="home">
+  <header class="home-head">
+    <div class="eyebrow">Any Query <span id="version"></span> · <a href="https://github.com/adityakilari/any-query" target="_blank" rel="noopener">Source on GitHub</a> · <a href="https://adityakilari.github.io/any-schema/" target="_blank" rel="noopener">Any Schema</a></div>
+    <h1>Understand any SQL query</h1>
+    <p>Paste a query and get a plain-English explanation, a step-by-step walkthrough, a diagram of how the data flows, where every column comes from, and a review of common mistakes with fixes. Your SQL is read in this browser tab only: it is never uploaded, and nothing is saved.</p>
+  </header>
+
+  <div class="home-grid">
+    <section class="drop" id="drop" aria-label="Paste or open a query">
+      <div class="drop-h">
+        <h2>Paste your SQL</h2>
+        <div class="row">
+          <label class="btn ghost small" for="file">Open a .sql file</label>
+          <input id="file" type="file" hidden accept=".sql,.txt,.pgsql,.psql,.ddl,.hql,.bq">
+        </div>
+      </div>
+      <textarea id="sql" spellcheck="false" autocomplete="off" aria-label="SQL query" placeholder="SELECT c.email, COUNT(o.id) AS orders&#10;FROM customers c&#10;LEFT JOIN orders o ON o.customer_id = c.id&#10;GROUP BY c.email&#10;ORDER BY orders DESC;"></textarea>
+      <div class="controls">
+        <label class="tag" for="dialect">Database</label>
+        <select id="dialect"></select>
+        <button class="btn" id="explain" type="button">Explain query</button>
+        <span class="tag kbd">or press Ctrl + Enter</span>
+      </div>
+      <div class="schema-box" id="schema-box">
+        <div>
+          <b>Optional: add your schema</b>
+          <p class="tag">With a schema, table and column names are checked, <code>SELECT *</code> is expanded, joins are judged by real keys, and each column gets its documented meaning. Any file Any Schema reads works: <code>CREATE TABLE</code> DDL, Prisma, JSON Schema, Salesforce, or a column-list export.</p>
+        </div>
+        <div class="row">
+          <label class="btn ghost small" for="schema-file">Add schema file</label>
+          <input id="schema-file" type="file" hidden accept=".sql,.ddl,.prisma,.json,.csv,.tsv,.txt">
+          <span id="schema-status" class="schema-status"></span>
+        </div>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="samples">
+      <h3>Or open a sample</h3>
+      <div class="sample-list" id="samples"></div>
+      <div class="what">
+        <h3>What you get</h3>
+        <ul>
+          <li><b>Explain</b>: what one row of the result means, every filter and join in plain English, step by step through CTEs and subqueries.</li>
+          <li><b>Flow</b>: a diagram of tables, CTEs and subqueries feeding the result.</li>
+          <li><b>Columns</b>: what each returned column means and which table columns it comes from.</li>
+          <li><b>Review</b>: mistakes that silently return wrong rows (NOT IN with NULLs, LEFT JOIN undone by WHERE, BETWEEN on timestamps, …) with ready-to-paste fixes.</li>
+          <li><b>SQL</b>: the query neatly formatted, with problem lines marked.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ================= RESULT ================= -->
+<div class="atlas wrap" id="result" hidden>
+  <header class="top">
+    <div class="top-title">
+      <div class="eyebrow" id="r-eyebrow"></div>
+      <h1 id="r-title" tabindex="-1"></h1>
+    </div>
+    <div class="topbtns">
+      <div class="stats" id="r-stats"></div>
+      <div class="row">
+        <button class="btn" id="edit" type="button">Edit query</button>
+        <button class="btn ghost" id="new" type="button">New query</button>
+      </div>
+    </div>
+  </header>
+  <nav class="stmts" id="stmts" aria-label="Statements" hidden></nav>
+  <div class="lede" id="r-lede"></div>
+  <div class="bar">
+    <div class="tabs" role="tablist" aria-label="Views">
+      <button role="tab" data-view="explain" type="button">Explain</button>
+      <button role="tab" data-view="flow" type="button">Flow</button>
+      <button role="tab" data-view="columns" type="button">Columns</button>
+      <button role="tab" data-view="review" type="button">Review<span class="count" id="review-count"></span></button>
+      <button role="tab" data-view="sql" type="button">SQL</button>
+      <button role="tab" data-view="export" type="button">Export</button>
+    </div>
+  </div>
+  <section class="view" id="view-explain"></section>
+  <section class="view" id="view-flow" hidden></section>
+  <section class="view" id="view-columns" hidden></section>
+  <section class="view" id="view-review" hidden></section>
+  <section class="view" id="view-sql" hidden></section>
+  <section class="view" id="view-export" hidden></section>
+</div>
+
+<footer class="footer wrap">Any Query is open source (MIT). Explanations come from fixed rules about SQL, column names and (if loaded) your schema, so treat them as a careful first read and check anything important.</footer>
+<script src="app.js"></script>
+</body>
+</html>

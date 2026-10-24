@@ -1,0 +1,56 @@
+{
+  "name": "any-query",
+  "version": "1.0.0",
+  "description": "Paste any SQL query and get a plain-English explanation, a step-by-step walkthrough, a data-flow diagram, column lineage and a review of common mistakes with fixes. Runs in your browser.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "any-query": "bin/any-query.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "samples",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test test/*.test.js",
+    "generate": "node scripts/generate.mjs",
+    "build": "node scripts/generate.mjs && node scripts/build.mjs",
+    "check": "node scripts/generate.mjs --check && node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "sql",
+    "query",
+    "explain",
+    "sql-explainer",
+    "sql-review",
+    "sql-lint",
+    "sql-formatter",
+    "data-lineage",
+    "postgres",
+    "oracle",
+    "sql-server",
+    "mysql",
+    "snowflake",
+    "bigquery"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityakilari/any-query.git"
+  },
+  "homepage": "https://adityakilari.github.io/any-query/",
+  "dependencies": {
+    "any-schema": "git+https://github.com/adityakilari/any-schema.git#09ca4164ac509ccb42510949c83f1fa6709e1ba9"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.10",
+    "esbuild": "^0.25.0",
+    "jsdom": "^26.1.0"
+  }
+}
